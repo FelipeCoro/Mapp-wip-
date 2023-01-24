@@ -18,8 +18,8 @@ class ImagesRepositoryImpl @Inject constructor(
     private val localDataSource: ImageDao,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : IImagesRepository {
-    override fun getImages(isOffline: Boolean) = flow {
-        if(!isOffline){
+    override fun getImages() = flow {
+
         val localData = localDataSource.getAll()
         val response = networkDataSource.getCharacters()
 
@@ -63,15 +63,5 @@ class ImagesRepositoryImpl @Inject constructor(
         }
 
         emit(Resource.Loading(false))
-    }
-        else{
-            emit(
-                Resource.Error(
-                    "no internet"
-                )
-            )
-        }
-
     }.flowOn(ioDispatcher)
-
 }

@@ -1,6 +1,5 @@
 package com.example.modernandroidapp.ui.viewmodels
 
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -12,7 +11,6 @@ import com.example.modernandroidapp.utils.network.NetworkMonitor
 import com.example.modernandroidapp.utils.wrapper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -27,28 +25,28 @@ class CharacterListViewModel @Inject constructor(
     var mainState by mutableStateOf(MainUiState())
         private set
 
-    private val isOffline = networkMonitor.isOnline
+   /* private val isOffline = networkMonitor.isOnline
         .map(Boolean::not)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = false
         )
-
+*/
 
     init {
 
-            loadCharactersList(isOffline.value)
+            loadCharactersList()
         }
 
 
-    fun loadCharactersList(networkStatus:Boolean) {
+    fun loadCharactersList() {
         viewModelScope.launch {
             mainState = mainState.copy(
                 isLoading = true,
                 error = null
             )
-            imagesRepository.getImages(networkStatus).collect() { result ->
+            imagesRepository.getImages().collect() { result ->
                 when (result) {
                     is Resource.Success -> {
                         result.data?.let { characters ->

@@ -5,5 +5,5 @@ import com.example.modernandroidapp.utils.wrapper.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface IImagesRepository {
-    fun getImages(networkStatus:Boolean): Flow<Resource<List<Character>>>
+    fun getImages(): Flow<Resource<List<Character>>>
 }
