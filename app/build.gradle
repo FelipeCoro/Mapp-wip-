@@ -111,4 +111,7 @@ dependencies {
 
     //Image Processing
     implementation("io.coil-kt:coil-compose:2.2.2")
+
+    //WorkManager
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
 }

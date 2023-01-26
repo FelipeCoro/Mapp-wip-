@@ -15,6 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ModernAndroidApp"
         tools:targetApi="31">
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data android:name="com.example.modernandroidapp.ui.offlineSync.SyncInitializer"
+                tools:node="remove" />
+        </provider>
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
